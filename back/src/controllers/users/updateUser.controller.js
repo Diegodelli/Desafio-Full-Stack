@@ -6,23 +6,11 @@ const bcrypt = require("bcryptjs");
 const updateUserController = async (req, res) => {
   const userData = userSchemaUpdateRequest.parse(req.body);
 
-  const userId = req.params.id;
+  const userId = res.locals.userId;
 
-  const findUser = await User.findOne({
-    where: {
-      id: userId,
-    },
-  });
-
-  if (!findUser) {
-    return res.status(404).json({
-      message: "User does not exist",
-    });
-  }
-
-  if (userData.password) {
+  if (!userData.password) {
     await User.update(
-      { ...userData, password: await bcrypt.hash(userData.password, 10) },
+      { ...userData },
       {
         where: {
           id: userId,
@@ -32,7 +20,7 @@ const updateUserController = async (req, res) => {
   }
 
   await User.update(
-    { ...userData },
+    { ...userData, password: bcrypt.hashSync(userData.password, 10) },
     {
       where: {
         id: userId,
