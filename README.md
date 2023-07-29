@@ -18,6 +18,7 @@ yarn
 Em seguida, crie um arquivo **.env**, copiando o formato do arquivo **.env.example**:
 
 Configure suas variáveis de ambiente com suas credenciais do Postgres e uma nova database da sua escolha.
+Crie uma database no Postgres com o mesmo nome em que adicionou ao arquivo **.env**!
 
 ### 1.3. Rodar API
 
