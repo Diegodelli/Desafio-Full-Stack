@@ -29,6 +29,10 @@ Execute o comando:
 node src/server
 ```
 
+### 1.4 Testando Rotas Da API
+
+Na pasta **back** possuí um arquivo para ser importado no Insomnia e testar as rotas da API.
+
 ---
 ## 5. Autenticação
 
@@ -61,7 +65,4 @@ Matenha a aplicação do Back-End rodando.
 A URL base da aplicação:
 http://localhost:5173/
 
-### 2.3 Testando Rotas Da API
-
-Na pasta **back** possuí um arquivo para ser importado no Insomnia e testar as rotas da API.
 
