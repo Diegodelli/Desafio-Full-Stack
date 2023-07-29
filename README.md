@@ -46,7 +46,7 @@ Acesse a pasta front e instale as dependências com o comando:
 yarn
 ```
 
-### 2.2. Para Rodar O Front-End
+### 2.2. Rodar Aplicação
 
 Execute o comando:
 
@@ -55,6 +55,8 @@ yarn dev
 ```
 
 Para acessar as páginas e navegar na aplicação copie a **URL** que irá aparecer no terminal ou clina **URL** a baixo.
+
+Matenha a aplicação do Back-End rodando.
 
 A URL base da aplicação:
 http://localhost:5173/
