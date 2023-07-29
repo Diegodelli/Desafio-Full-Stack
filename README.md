@@ -1,5 +1,5 @@
 # Desafio-Full-Stack
-## Desáfio Full-Stack da Next Digital
+## Desáfio Full-Stack da Nex Digital
 
 ---
 
