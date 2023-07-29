@@ -1,75 +1,53 @@
 import { ContainerModal } from "./styles";
 import BtnForm from "../ButtonForm";
 import "../../styles/text.css";
-import "../../styles/button.css";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { useContext } from "react";
-import { ContactContext } from "../../contexts/ContactContext";
 import { ToastContainer } from "react-toastify";
-import Loading from "../Loading";
 import useOutClick from "../../hooks/useOutClick";
-import { iContact } from "../../services/postContact";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { createPortal } from "react-dom";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
+import Loading from "../Loading";
 
 export const Modal = () => {
   const refModal = useOutClick(() => {
-    setModalContact(false);
+    setModal(false);
   });
 
-  const schema = z.object({
-    fullname: z.string().nonempty("Nome é obrigatório"),
-    email: z
-      .string()
-      .nonempty("E-mail é obrigatório")
-      .email("Deve ser um e-mail"),
-    telephone: z.string().nonempty("Telefone é obrigatório"),
-  });
+  const { setModal, submitEditUser, editLoading } = useContext(UserContext);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<iContact>({
-    resolver: zodResolver(schema),
-  });
-
-  const { submitAddContact, setModalContact, loadingAdd } =
-    useContext(ContactContext);
+  const { register, handleSubmit } = useForm();
 
   const closeModal = () => {
-    setModalContact(false);
+    setModal(false);
   };
 
   return createPortal(
     <>
       <ToastContainer />
-
       <ContainerModal>
-        <div className="content__modal" ref={refModal}>
-          <div className="title__modal">
-            <h4 className="title__Modal">Cadastrar Contato</h4>
+        {!editLoading && <Loading />}
+        <div className="contentModal" ref={refModal}>
+          <div className="headerModal">
+            <h4 className="titleModal">Editar Perfil</h4>
             <button
-              className="close__modal"
+              className="closeModal"
               type="button"
               onClick={() => closeModal()}
             >
               x
             </button>
           </div>
-          <form onSubmit={handleSubmit(submitAddContact)}>
-            {loadingAdd && <Loading />}
-            <label className="textLabel" htmlFor="fullname">
+          <form onSubmit={handleSubmit(submitEditUser)}>
+            <label className="textLabel" htmlFor="name">
               Nome
             </label>
             <input
               type="text"
-              id="fullname"
-              placeholder="Nome completo"
-              {...register("fullname")}
+              id="name"
+              placeholder="Editar nome"
+              {...register("name")}
             />
-            <p>{errors.fullname?.message}</p>
 
             <label className="textLabel" htmlFor="email">
               E-mail
@@ -78,24 +56,22 @@ export const Modal = () => {
             <input
               type="text"
               id="email"
-              placeholder="E-mail"
+              placeholder="Editar e-mail"
               {...register("email")}
             />
-            <p>{errors.email?.message}</p>
 
-            <label className="textLabel" htmlFor="telephone">
-              Número de Telefone
+            <label className="textLabel" htmlFor="password">
+              Senha
             </label>
 
             <input
-              type="text"
-              id="telephone"
-              placeholder="Telefone"
-              {...register("telephone")}
+              type="password"
+              id="password"
+              placeholder="Editar senha"
+              {...register("password")}
             />
-            <p>{errors.telephone?.message}</p>
 
-            <BtnForm type="submit">Cadastrar Contato</BtnForm>
+            <BtnForm type="submit">Confirmar</BtnForm>
           </form>
         </div>
       </ContainerModal>

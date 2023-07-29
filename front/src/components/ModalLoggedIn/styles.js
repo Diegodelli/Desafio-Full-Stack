@@ -16,7 +16,7 @@ export const ContainerModalLoggedIn = styled.div`
   color: var(--gray-scale-5);
   background-color: var(--black-opacity);
 
-  .content__modal {
+  .contentModal {
     width: 90%;
     max-width: 370px;
 
@@ -32,7 +32,7 @@ export const ContainerModalLoggedIn = styled.div`
     animation: showModal 1.5s ease;
   }
 
-  .header__modal {
+  .headerModal {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,7 +49,7 @@ export const ContainerModalLoggedIn = styled.div`
     width: 100%;
   }
 
-  .header__modal > h4 {
+  .headerModal > h4 {
     font-size: 1.8rem;
   }
 

@@ -109,6 +109,116 @@ const ContainerHome = styled.div`
     color: var(--gray-scale-4);
   }
 
+  .sectionProduct {
+    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 4.5rem;
+  }
+
+  .listProducts {
+    max-width: 1600px;
+
+    display: flex;
+    gap: 2rem;
+
+    overflow-x: auto;
+
+    margin-top: 2rem;
+    padding: 0 2.5rem;
+  }
+
+  .listProducts > li {
+    max-width: 28rem;
+    min-width: 27.5rem;
+    min-height: 36rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    background-color: var(--color--brand4);
+
+    border-radius: 0.4rem;
+
+    margin-bottom: 3.2rem;
+
+    position: relative;
+
+    figure {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+
+      border-top-left-radius: 0.4rem;
+      border-top-right-radius: 0.4rem;
+
+      img {
+        width: 100%;
+        max-height: 20rem;
+
+        background-color: var(--color--grey-7);
+
+        border-top-left-radius: 0.4rem;
+        border-top-right-radius: 0.4rem;
+
+        transition: 0.8s ease;
+      }
+
+      img:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    .divContent {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 2rem;
+
+      padding: 0 0.75rem;
+      padding-bottom: 1rem;
+
+      h3 {
+        color: var(--gray-scale-3);
+
+        font-size: 1.6rem;
+      }
+
+      p {
+        color: var(--gray-scale-3);
+
+        font-size: 1.1rem;
+      }
+
+      div {
+        width: 100%;
+        position: absolute;
+        bottom: 1.5rem;
+
+        display: flex;
+
+        .price {
+          font-weight: 600;
+        }
+
+        .brand {
+          font-weight: 600;
+          font-size: 1.25rem;
+
+          position: absolute;
+          right: 1.5rem;
+
+          color: var(--color--brand1);
+        }
+      }
+    }
+  }
+
   @media (min-width: 700px) {
     section > div {
       width: 100%;
@@ -117,6 +227,12 @@ const ContainerHome = styled.div`
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
+    }
+    .listProducts {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: calc(100% / 12);
+      overflow: hidden;
     }
   }
 `;

@@ -6,7 +6,7 @@ const useOutClick = (callback) => {
   useEffect(() => {
     const outClick = (event) => {
       const target = event.target;
-      if (ref.current?.contains(target)) {
+      if (!ref.current?.contains(target)) {
         callback();
       }
     };

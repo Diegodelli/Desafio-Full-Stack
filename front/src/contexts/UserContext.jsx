@@ -9,21 +9,38 @@ const UserProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
+  const [editLoading, setEditLoading] = useState(false);
+  const [modal, setModal] = useState(false);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("@next:token");
+    const fetchUser = async () => {
+      const token = localStorage.getItem("@next:token");
 
-    if (!token) {
-      setLoading(false);
+      if (!token) {
+        setLoading(false);
 
-      return;
-    }
+        return;
+      }
 
-    api.defaults.headers.authorization = `Bearer ${token}`;
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      setLoading(true);
 
-    setLoading(true);
-  });
+      try {
+        const res = await api.get("/users/");
+        const userData = res.data;
+
+        setUser(userData);
+        setLoading(true);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(true);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   const onSubmit = async (data) => {
     try {
@@ -45,7 +62,9 @@ const UserProvider = ({ children }) => {
 
       localStorage.setItem("@next:token", token);
 
-      navigate("/home", { replace: true });
+      setTimeout(() => {
+        navigate("/home", { replace: true });
+      }, 2000);
     } catch (err) {
       toast.error("Ops, algo deu errado!", {
         position: "top-right",
@@ -65,7 +84,7 @@ const UserProvider = ({ children }) => {
 
   const onSubmitRegister = async (data) => {
     try {
-      const res = await api.post("/users", data);
+      await api.post("/users", data);
 
       toast.success("Conta criada com sucesso!", {
         position: "top-right",
@@ -76,8 +95,51 @@ const UserProvider = ({ children }) => {
         draggable: true,
         progress: undefined,
       });
+      setTimeout(() => {
+        navigate("/", { replace: true });
+      }, 2000);
+    } catch (err) {
+      toast.error("Ops! algo deu errado.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      console.log(err);
+    }
+  };
 
-      navigate("/", { replace: true });
+  const submitEditUser = async (data) => {
+    try {
+      if (data.name === "") {
+        delete data.name;
+      }
+      if (data.email === "") {
+        delete data.email;
+      }
+      if (data.password === "") {
+        delete data.password;
+      }
+
+      const res = await api.patch("/users/", data);
+      const userData = res.data;
+
+      toast.success("Edição efetuada com sucesso!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      setUser(userData);
+      setEditLoading(true);
+      setModal(false);
     } catch (err) {
       toast.error("Ops! algo deu errado.", {
         position: "top-right",
@@ -97,10 +159,14 @@ const UserProvider = ({ children }) => {
       value={{
         onSubmit,
         onSubmitRegister,
+        submitEditUser,
         user,
         setUser,
         loading,
         setLoading,
+        modal,
+        setModal,
+        editLoading,
       }}
     >
       {children}
