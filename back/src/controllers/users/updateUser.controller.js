@@ -8,9 +8,9 @@ const updateUserController = async (req, res) => {
 
   const userId = res.locals.userId;
 
-  if (!userData.password) {
+  if (userData.password) {
     await User.update(
-      { ...userData },
+      { ...userData, password: bcrypt.hashSync(userData.password, 10) },
       {
         where: {
           id: userId,
@@ -20,7 +20,7 @@ const updateUserController = async (req, res) => {
   }
 
   await User.update(
-    { ...userData, password: bcrypt.hashSync(userData.password, 10) },
+    { ...userData },
     {
       where: {
         id: userId,

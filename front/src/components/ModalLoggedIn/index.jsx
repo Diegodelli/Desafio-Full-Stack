@@ -5,9 +5,9 @@ import { createPortal } from "react-dom";
 export const ModalLoggedIn = () => {
   return createPortal(
     <ContainerModalLoggedIn>
-      <div className="content__modal">
-        <div className="header__modal">
-          <h4 className="title__Modal">Você não está logado!</h4>
+      <div className="contentModal">
+        <div className="headerModal">
+          <h4>Você não está logado!</h4>
         </div>
 
         <Link className="link" to={"/"}>

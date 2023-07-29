@@ -15,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
     --color--brand1: #4529E6;
     --color--brand2: #5126EA;
     --color--brand3: #B0A6F0;
+    --color--brand4: #d8e3ff;
     
     --color-sucess: #3FE864;
     --color-negative: #E83F5B;
@@ -36,6 +37,15 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  ::-webkit-scrollbar {
+    background-color: var(--color--grey-8);
+   
+    height: 10px;
+    width: 10px;
+   
+    border: solid 1px var(--color--grey-2);
+  }
+  
   ::-webkit-scrollbar-thumb {
     background-color: var(--color--brand1);
    
